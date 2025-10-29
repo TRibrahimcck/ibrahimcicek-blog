@@ -1,0 +1,1313 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    
+
+    
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>İbrahim Çiçek Blogu | Yazılım, Otomasyon ve Yapay Zeka Uygulamaları</title>
+ <meta name="description" content="İbrahim Çiçek'in yazılım, web tasarım ve otomasyon üzerine kişisel blogu.">
+ <style>
+  /* CSS Değişkenleri ve Temel Ayarlar */
+  :root{
+    --bg:#0f0f10;
+    --card:#121215;
+    --muted:#9aa0a6;
+    --accent:#7dd3fc;
+    --primary-v:#4f46e5;
+    --csharp-thumb:#2a2f44;
+    --news-card: #1f1f25;
+    --radius:12px;
+    /* Araçlar ve Oyunlar için özel renkler */
+    --tool-color: #f59e0b;
+    --tool-thumb: #3f2f11;
+    --calc-color: #10b981; 
+    --game-color: #f472b6; 
+    --game-thumb: #4a142c;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  }
+  *{box-sizing:border-box}
+  html { scroll-behavior: smooth; }
+  body{margin:0;background:linear-gradient(180deg,#070707 0%, #0b0b0c 60%);color:#e6eef3;padding:32px;}
+
+  /* ANA SAYFA DÜZENİ */
+  .container{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:start}
+
+  /* HEADER */
+  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:700;color:#031025}
+  .title{font-size:18px;font-weight:700}
+  .subtitle{font-size:12px;color:var(--muted)}
+  nav{display:flex;gap:12px}
+  .btn{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;cursor:pointer;font-size:14px;transition:background 0.3s;}
+  .btn:hover { background: rgba(255,255,255,0.1); }
+
+  /* MAIN CONTENT */
+  .hero{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:var(--radius);display:flex;gap:18px;align-items:center;margin-bottom:18px;border:1px solid rgba(255,255,255,0.05);}
+  .hero .meta{flex:1}
+  .hero h1{margin:0 0 6px 0;font-size:22px;color:var(--accent);}
+  .hero p{margin:0;color:var(--muted)}
+
+  /* ABOUT SECTION */
+  .about{background:var(--card);padding:24px;border-radius:var(--radius);margin-bottom:18px;border:1px solid rgba(255,255,255,0.05);box-shadow:0 0 15px rgba(0,0,0,0.2);}
+  .about h2{margin-top:0;color:var(--primary-v);border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:8px;margin-bottom:15px;}
+  .about p { font-size: 15px; margin-bottom: 12px; }
+
+  /* POSTS */
+  .posts{display:grid;grid-template-columns:1fr;gap:18px; margin-bottom: 30px;}
+  .post{background:var(--card);padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.05);display:flex;gap:18px;transition:border-color 0.3s, transform 0.3s;}
+  .post:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .post .thumb{width:180px;height:120px;border-radius:10px;background:linear-gradient(135deg,#13202a,#0d1a21);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700;font-size:14px;}
+  .post .thumb.csharp-thumb { background: var(--csharp-thumb); }
+  .post h3{margin:0 0 8px 0; color:white;}
+  .post p{margin:0;color:var(--muted);font-size:14px}
+  .post .meta{font-size:12px; color:var(--primary-v); margin-bottom:4px;}
+  .post a.read-more { color: var(--accent); text-decoration: none; font-size: 14px; margin-top: 10px; display: inline-block; font-weight: 600; }
+  
+  /* PRATİK ARAÇLAR STİLİ */
+  .tools-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .tools-section h2 {
+    color: var(--tool-color);
+    font-size: 24px;
+    border-left: 4px solid var(--tool-color);
+    padding-left: 10px;
+    margin-bottom: 25px;
+  }
+  .tool-item {
+    background: var(--card);
+    padding: 20px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    gap: 18px;
+    margin-bottom: 18px;
+    transition: border-color 0.3s;
+  }
+  .tool-item:hover {
+    border-color: var(--tool-color);
+  }
+  .tool-item .tool-thumb {
+    width: 150px;
+    height: 100px;
+    border-radius: 8px;
+    background: var(--tool-thumb);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tool-color);
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .tool-item .calc-thumb {
+    background: #064e3b; 
+    color: var(--calc-color);
+  }
+  .tool-item h3 {
+    margin: 0 0 8px 0;
+    color: var(--tool-color);
+  }
+  .tool-item.calc-item h3 {
+    color: var(--calc-color);
+  }
+  .tool-item p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .tool-item .use-tool-btn {
+    background: var(--tool-color);
+    border: none;
+    color: #1f1f25;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: background 0.3s;
+    font-weight: 600;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .tool-item.calc-item .use-tool-btn {
+    background: var(--calc-color);
+  }
+  .tool-item.calc-item .use-tool-btn:hover {
+    background: #0d9488;
+  }
+  .tool-item .use-tool-btn:hover {
+    background: #fbbf24;
+  }
+  
+  /* OYUNLAR BÖLÜMÜ STİLİ */
+  .games-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .games-section h2 {
+    color: var(--game-color);
+    font-size: 24px;
+    border-left: 4px solid var(--game-color);
+    padding-left: 10px;
+    margin-bottom: 25px;
+  }
+  .game-item {
+    background: var(--card);
+    padding: 20px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    gap: 18px;
+    margin-bottom: 18px;
+    transition: border-color 0.3s;
+  }
+  .game-item:hover {
+    border-color: var(--game-color);
+  }
+  .game-item .game-thumb {
+    width: 150px;
+    height: 100px;
+    border-radius: 8px;
+    background: var(--game-thumb);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--game-color);
+    font-weight: 700;
+    font-size: 16px;
+  }
+  /* XOX için özel thumb stili */
+  .game-item .tictactoe-thumb {
+      background: #4c1d95; /* Mor tonu */
+      color: #a78bfa; 
+  }
+
+  .game-item h3 {
+    margin: 0 0 8px 0;
+    color: var(--game-color);
+  }
+  .game-item .play-btn {
+    background: var(--game-color);
+    border: none;
+    color: #1f1f25;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: background 0.3s;
+    font-weight: 600;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .game-item .play-btn:hover {
+    background: #ec4899;
+  }
+
+  /* TEKNOLOJİ HABERLERİ BÖLÜMÜ STİLLERİ */
+  .news-section {
+    margin-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+  }
+  .news-section h2 {
+    color: white; 
+    font-size: 24px;
+    border-left: 4px solid var(--accent); 
+    padding-left: 10px;
+    margin-bottom: 25px;
+  }
+  .news-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  /* HABER ÖĞELERİ KART STİLİ */
+  .news-item {
+      background: var(--card);
+      padding: 15px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .news-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  .news-item h4 {
+      color: white;
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 16px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-bottom: 5px;
+  }
+  .news-item p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 10px 0;
+  }
+  .news-item a.news-read-btn {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+  }
+  .news-item a.news-read-btn:hover {
+      color: white;
+  }
+  
+  /* GÜNCELLEMELER BÖLÜMÜ STİLLERİ */
+  .updates-section {
+    margin-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 20px;
+  }
+  .updates-section h2 {
+    color: white; 
+    font-size: 24px;
+    border-left: 4px solid var(--primary-v);
+    padding-left: 10px;
+    margin-bottom: 25px;
+  }
+  .update-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  /* GÜNCELLEME ÖĞELERİ KART STİLİ */
+  .update-item {
+      background: var(--card);
+      padding: 15px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.3s, border-color 0.3s;
+  }
+  .update-item:hover {
+      border-color: var(--primary-v);
+  }
+  .update-item h4 {
+      color: var(--primary-v);
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 16px;
+  }
+  .update-item p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 10px 0;
+  }
+  .update-item .date {
+      display: block;
+      font-size: 12px;
+      color: #a78bfa; 
+      margin-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 5px;
+  }
+
+  /* ASIDE (SIDEBAR) */
+  aside{position:sticky;top:32px;}
+
+  /* CARD VE FOOTER STİLLERİ KORUNDU */
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.05);margin-bottom:20px;}
+  .card h3 { color:var(--accent); margin-top:0; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:8px; margin-bottom:15px; }
+  .card p { font-size:14px; margin:0 0 10px 0; }
+  .card a { color:var(--accent); text-decoration:none; transition:color 0.3s; }
+  .card a:hover { color:white; }
+
+  .social-links { 
+    display:flex; 
+    gap:12px; 
+    margin-top:15px; 
+    /* Düzeltme: Birden fazla bağlantı için wrap eklendi */
+    flex-wrap: wrap; 
+  }
+  .social-link { background:var(--primary-v); padding:8px 12px; border-radius:6px; color:white; text-decoration:none; font-size:13px; transition:background 0.3s; }
+  .social-link:hover { background: #6366f1; }
+  
+  footer{margin-top:28px;opacity:0.7;font-size:13px;color:var(--muted);text-align:center;}
+
+  /* RESPONSIVE DÜZEN KORUNDU */
+  @media(max-width:980px){
+    .container{grid-template-columns:1fr;padding:16px;}
+    .post{flex-direction:column}
+    .post .thumb{width:100%;height:180px;}
+    aside{position:static;top:auto;}
+  }
+ </style>
+</head>
+<body>
+ <div class="container">
+  <div>
+   <header>
+    <div class="brand">
+     <div class="logo">İÇ</div>
+     <div>
+      <div class="title">İbrahim Çiçek</div>
+      <div class="subtitle">Yazılım • Otomasyon • Web Tasarım</div>
+     </div>
+    </div>
+    <nav>
+     <button class="btn" id="aboutBtn">Hakkımda</button>
+    </nav>
+   </header>
+
+   <main>
+    <section class="hero">
+     <div class="meta">
+      <h1>İbrahim Çiçek'in Bloguna Hoş Geldiniz</h1>
+      <p>Bilgisayar Programcılığı, otomasyon sistemleri ve kullanıcı dostu yazılım çözümleri üzerine analizlerimi paylaşıyorum.</p>
+     </div>
+    </section>
+
+    <section class="about" id="about">
+     <h2>Hakkımda (Özet)</h2>
+     <p>Ben <strong>İbrahim Çiçek</strong> (Ankara Üniversitesi Bilgisayar Programcılığı). Yazılım geliştirme, eğitim teknolojileri ve bilgisayar bilimleri alanlarında deneyim sahibiyim. **Web geliştirme, otomasyon sistemleri** ve kullanıcı dostu yazılım çözümleri üretme üzerine çalışıyorum.</p>
+     <p>Temel yetkinliklerim arasında **C#, Java, PHP, Python, JavaScript, HTML, CSS** ve **MySQL** bulunuyor. Özellikle **Python** ile **sesli asistan** gibi yapay zeka uygulamaları geliştirme üzerine çalışıyorum. Ayrıca **grafik tasarım (Canva dahil)** ve **sosyal medya görselleri** oluşturma, **3D modelleme (SolidWorks)** ve **CNC operatörlüğü** gibi yan alanlarda da bilgi sahibiyim. Necmettin Yıldız Meslek Lisesi'nden **Okul Birinciliği** ile mezun oldum.</p>
+    </section>
+
+    <section class="posts" id="posts">
+          <h2>Özel Yazılarım</h2>
+      
+          <div class="post">
+      <div class="thumb csharp-thumb">C#</div>
+      <div>
+            <div class="meta">Yazılım Prensipleri | Geliştirme</div>
+        <h3>C# Üzerinden Kapsülleme (Encapsulation): Güvenli Veri Yönetimi</h3>
+        <p>Nesne Yönelimli Programlama'nın (OOP) temel direği olan **Kapsülleme** ilkesini C# dilinde nasıl uyguladığımı inceliyorum. Projelerimde, verileri sınıf dışı erişimden korumak ve `private set` ile **güvenli, kontrollü yazma** işlemleri sağlamak için C# özelliklerini kullanma yöntemlerim.</p>
+            <a href="#" class="read-more">Devamını Oku &raquo;</a>
+      </div>
+     </div>
+           
+          <div class="post">
+      <div class="thumb">PYTHON</div>
+      <div>
+            <div class="meta">Yapay Zeka | Uygulama</div>
+        <h3>Python ile Sesli Asistan Geliştirme: Yapay Zeka Uygulamalarına Giriş</h3>
+        <p>Günümüzde **Python**'un popülaritesi, özellikle sesli komut ve yapay zeka alanında hızla artıyor. Kendi **sesli asistan** uygulamalarımızı nasıl geliştiririz? **Konuşma tanıma** ve **metin sentezi** kütüphanelerini kullanarak pratik ve ilgi çekici projeler oluşturma adımlarını inceliyorum.</p>
+            <a href="#" class="read-more">Devamını Oku &raquo;</a>
+      </div>
+     </div>
+           
+          
+           <div class="post">
+      <div class="thumb">JAVA</div>
+      <div>
+            <div class="meta">Eğitim Teknolojileri | Proje</div>
+        <h3>Java Kütüphane Otomasyonu: Geliştirme Süreçleri ve Mimarisi</h3>
+        <p>Geliştirdiğim **Kütüphane Otomasyonu (Java + MySQL)** projesi, üye/kitap yönetimi, ödünç/iade takibi ve **stok takibi** gibi kritik işlevleri içeriyor. Bu otomasyon sisteminde, verimli ve güvenli bir veri akışı için **Java** ve **MySQL**'i nasıl birleştirdiğimizi inceliyoruz.</p>
+            <a href="#" class="read-more">Devamını Oku &raquo;</a>
+      </div>
+     </div>
+           
+           <div class="post">
+      <div class="thumb">PHP / WEB</div>
+      <div>
+            <div class="meta">E-Ticaret | Otomasyon</div>
+        <h3>XAMPP + PHP ile Dinamik Satış Uygulamaları ve E-Ticaret Çözümleri</h3>
+        <p>**Kalem Satış Sistemi** projemde, **PHP** ve **XAMPP** kullanarak ürün ekleme, silme, güncelleme, **stok takibi** ve **PDF fiş çıktısı** gibi işlevleri nasıl gerçekleştirdiğimi anlatıyorum. Ayrıca **Mobilya Satış E-Ticaret Sitemizin** altyapı detaylarına değiniyorum.</p>
+            <a href="#" class="read-more">Devamını Oku &raquo;</a>
+      </div>
+     </div>
+           
+     <div class="post" style="width: 100%; border: none; background: none; box-shadow: none; padding: 0;">
+         <div class="thumb" style="flex-shrink: 0; margin-right: 18px;">TEKNİK</div>
+         <div>
+             <div class="meta">Donanım | Tasarım | Kariyer</div>
+             <h3>Yazılımcı Gözüyle SolidWorks, CNC ve Sunucu Sistemleri Yönetimi</h3>
+             <p>**SolidWorks ile temel çizim ve modelleme** ve **CNC Freze Operatörlüğü** sertifikalarımın yazılım projelerine katkısı nedir? **Bilgisayar donanımları, bakım onarım** ve **sunucu işletim sistemleri** üzerine olan bilgimin altyapısal güvenilirliği nasıl artırdığını inceliyoruz.</p>
+             <a href="#" class="read-more">Devamını Oku &raquo;</a>
+         </div>
+     </div>
+    </section>
+    
+    <section class="tools-section">
+        <h2>🛠️ Pratik Araç Kutusu (Developer Tools)</h2>
+        
+        <div class="tool-item calc-item">
+            <div class="tool-thumb calc-thumb">HESAP</div>
+            <div>
+                <h3>Mini Hesap Makinesi</h3>
+                <p>Temel matematiksel işlemleri (toplama, çıkarma, çarpma, bölme) hızlıca gerçekleştirebileceğiniz anlık bir yardımcı.</p>
+                <a href="javascript:void(0);" onclick="showTool('MINI_CALCULATOR')" class="use-tool-btn">Aracı Kullan &raquo;</a>
+            </div>
+        </div>
+
+        <div class="tool-item">
+            <div class="tool-thumb">C#</div>
+            <div>
+                <h3>C# Property Üreticisi</h3>
+                <p>Kapsüllemeye uygun, değişken adınızdan otomatik olarak `private field` ve `public property` yapısını oluşturan hızlı ve pratik bir araç.</p>
+                <a href="javascript:void(0);" onclick="showTool('C#_PROPERTY_GENERATOR')" class="use-tool-btn">Aracı Kullan &raquo;</a>
+            </div>
+        </div>
+        
+        <div class="tool-item">
+            <div class="tool-thumb">WEB</div>
+            <div>
+                <h3>HEX'ten RGB'ye Renk Dönüştürücü</h3>
+                <p>Web tasarım ve CSS projeleriniz için HEX renk kodlarını anında RGB formatına dönüştürün. Hızlı prototipleme için ideal.</p>
+                <a href="javascript:void(0);" onclick="showTool('HEX_TO_RGB_CONVERTER')" class="use-tool-btn">Aracı Kullan &raquo;</a>
+            </div>
+        </div>
+
+        
+    </section>
+    <section class="games-section">
+        <h2>🎮 Eğlenceli Mola: Mini Oyunlar</h2>
+        
+        <div class="game-item">
+            <div class="game-thumb">JS OYUN</div>
+            <div>
+                <h3>Sayı Tahmin Oyunu</h3>
+                <p>Bilgisayarın tuttuğu sayıyı (1-100 arası) bulmaya çalışın. Programlama mantığı ve döngülerin temelini anlamak için ideal bir uygulama.</p>
+                <a href="javascript:void(0);" onclick="showGame('GUESSING_GAME')" class="play-btn">Oyna &raquo;</a>
+            </div>
+        </div>
+
+        <div class="game-item">
+            <div class="game-thumb">VS AI</div>
+            <div>
+                <h3>Taş-Kağıt-Makas (Rock-Paper-Scissors)</h3>
+                <p>Yapacağınız hamleye göre yapay zekaya karşı oynayın. Basit koşullu ifadeler (if/else) ve rastgelelik (random) üzerine kurulu bir demo.</p>
+                <a href="javascript:void(0);" onclick="showGame('RPS_GAME')" class="play-btn">Oyna &raquo;</a>
+            </div>
+        </div>
+
+        <div class="game-item">
+            <div class="game-thumb tictactoe-thumb">VS AI</div>
+            <div>
+                <h3>XOX Oyunu (Vs. AI)</h3>
+                <p>Klasik XOX oyununda bilgisayara karşı oynayın. Temel oyun mantığı ve yapay zeka simülasyonunu içerir. (Siz: X, PC: O)</p>
+                <a href="javascript:void(0);" onclick="showGame('TICTACTOE_GAME')" class="play-btn" style="background: #6d28d9; color: #fff;">Oyna &raquo;</a>
+            </div>
+        </div>
+        
+        <div class="game-item">
+            <div class="game-thumb" style="background: #111827; color: #a7f3d0;">SNAKE</div>
+            <div>
+                <h3>Snake (Yılan Oyunu)</h3>
+                <p>Klasik Yılan Oyunu'nun saf JavaScript versiyonu. Yön tuşlarını kullanarak engellere çarpmadan puan toplayın.</p>
+                <a href="javascript:void(0);" onclick="showGame('SNAKE_GAME')" class="play-btn">Oyna &raquo;</a>
+            </div>
+        </div>
+        
+        <div class="game-item">
+            <div class="game-thumb" style="background: #374151; color: #facc15;">SATRANÇ</div>
+            <div>
+                <h3>Satranç (Harici Platform)</h3>
+                <p>Online satranç oynamak, problem çözme yeteneğinizi geliştirir. Sizi en iyi online platforma yönlendiriyorum.</p>
+                <a href="https://www.chess.com/" target="_blank" class="play-btn" style="background: #facc15; color: #1f1f25;">Platforma Git &raquo;</a>
+            </div>
+        </div>
+        
+    </section>
+    <section class="news-section">
+          <h2>Gündemden Seçtiklerim: Teknoloji Haberleri</h2>
+          <div class="news-list">
+            
+            <div class="news-item">
+              <h4>Yeni Google Gemini Modeli Çıktı</h4>
+              <p>Yapay zeka alanında büyük ilerleme kaydeden Gemini 2.5'in yeni yetenekleri ve yazılım geliştirmeye etkileri...</p>
+              <a href="#" class="news-read-btn" onclick="showFullNews('Yeni Google Gemini Modeli Çıktı', 'Yapay zeka devi Google, Gemini 2.5 Pro modelini duyurdu. Bu model, özellikle çok modlu (multimodal) yetenekleri sayesinde kod yazma, karmaşık problemleri çözme ve uzun bağlamları anlama konusunda çığır açıyor. Geliştiriciler için yeni API\'ler ve entegrasyon fırsatları sunuluyor. Yapay zeka uygulamaları geliştirme çalışmalarınızda bu yeni araçları kullanabilirsiniz.')">Haberi Oku</a>
+            </div>
+            
+            <div class="news-item">
+              <h4>React 19, Client/Server Bileşenlerini Tanıtıyor</h4>
+              <p>Web geliştirme dünyasında heyecan yaratan React 19, yeni mimari yaklaşımlarla geliyor...</p>
+              <a href="#" class="news-read-btn" onclick="showFullNews('React 19, Client/Server Bileşenlerini Tanıtıyor', 'React ekibi, 19. sürüm ile birlikte Server Components (Sunucu Bileşenleri) kavramını resmen kullanıma sundu. Bu, özellikle Next.js gibi çerçevelerle çalışırken, uygulamanın performansını ve başlangıç yükleme hızını (initial load time) önemli ölçüde artırmayı amaçlıyor. JavaScript ve React çalışmalarınız için kritik bir yeniliktir.')">Haberi Oku</a>
+            </div>
+
+            <div class="news-item">
+              <h4>Siber Güvenlikte Yeni Trend: Kapsülleme Açıkları</h4>
+              <p>C# gibi dillerde kapsülleme ne kadar güvenli? Güvenlik uzmanlarından önemli uyarılar...</p>
+              <a href="#" class="news-read-btn" onclick="showFullNews('Siber Güvenlikte Yeni Trend: Kapsülleme Açıkları', 'Modern yazılım mimarilerinde dahi Kapsülleme (Encapsulation) prensibinin yanlış uygulanmasından kaynaklanan siber güvenlik açıkları tespit edilmeye başlandı. C# ve Java gibi dillerde private set veya final anahtar kelimelerinin doğru kullanılmaması, kritik verilere yetkisiz erişime neden olabiliyor. Geliştiricilerin bu konuda daha dikkatli olması gerekiyor.')">Haberi Oku</a>
+            </div>
+            
+            <div class="news-item">
+              <h4>Veri Merkezi Soğutma Çözümlerinde Yeni Dönem</h4>
+              <p>Sunucu işletim sistemleri ve donanım yönetimi için yeni nesil sıvı soğutma teknolojileri...</p>
+              <a href="#" class="news-read-btn" onclick="showFullNews('Veri Merkezi Soğutma Çözümlerinde Yeni Dönem', 'Bilgisayar donanımları ve sunucu işletim sistemleri üzerine çalışan uzmanların dikkatini çeken yeni bir sıvı soğutma teknolojisi tanıtıldı. Bu teknoloji, veri merkezlerinin enerji verimliliğini %30\'a kadar artırarak otomasyon ve yazılım sistemlerinin daha kararlı çalışmasına olanak sağlıyor. Donanım bakımı ve onarımı alanındaki uzmanlığınızla bu gelişmeleri takip etmeniz önemlidir.')">Haberi Oku</a>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="updates-section">
+            <h2>Blog Güncellemeleri ve Yol Haritası</h2>
+            <div class="update-list">
+                
+                <div class="update-item">
+                    <h4>Yeni Proje Başlatıldı: Vue.js + Firebase Mimarisi</h4>
+                    <p>Web geliştirme alanında yeni bir tam yığın (full-stack) proje için çalışmalara başlandı. Ön yüz **Vue.js**, arka yüz **Node.js (Express)** ve veritabanı **PostgreSQL** olacaktır.</p>
+                    <span class="date">Yol Haritası: Kasım 2025</span>
+                </div>
+                
+                <div class="update-item">
+                    <h4>Python Sesli Asistan Projesi V2.0 Duyurusu</h4>
+                    <p>Sesli asistan projesinde önemli bir mimari güncelleme yapıldı. Artık Google Speech-to-Text yerine daha hızlı ve çevrimdışı çalışabilen **Vosky API** entegre ediliyor.</p>
+                    <span class="date">Güncellenme Tarihi: 10 Ekim 2025</span>
+                </div>
+
+                <div class="update-item">
+                    <h4>"C# Kapsülleme" Yazısı Genişletildi</h4>
+                    <p>C# Üzerinden Kapsülleme yazısına **Record** tiplerinin `with` ifadesiyle kullanımı ve immutability (değişmezlik) konuları ile ilgili yeni bir bölüm eklendi.</p>
+                    <span class="date">Güncellenme Tarihi: 18 Eylül 2025</span>
+                </div>
+
+                <div class="update-item">
+                    <h4>Yeni Proje Başlatıldı: React + Node.js Mimarisi</h4>
+                    <p>Web geliştirme alanında yeni bir tam yığın (full-stack) proje için çalışmalara başlandı. Ön yüz **React (Vite)**, arka yüz **Node.js (Express)** ve veritabanı **PostgreSQL** olacaktır.</p>
+                    <span class="date">Yol Haritası: Kasım 2025</span>
+                </div>
+
+                <div class="update-item">
+                    <h4>Donanım Bakımı ve Onarım Rehberi</h4>
+                    <p>Bilgisayar donanımları, bakım onarım ve sunucu işletim sistemleri üzerine kapsamlı bir rehber eklenecek. Teknik bilginizi pekiştirin.</p>
+                    <span class="date">Yol Haritası: Aralık 2025</span>
+                </div>
+
+            </div>
+        </section>
+        <footer>
+     © 2025 İbrahim Çiçek — Yazılım Geliştirici | Tüm hakları saklıdır.
+    </footer>
+   </main>
+  </div>
+  
+  <aside>
+           <div class="card">
+    <h3>İletişim & Sosyal Medya</h3>
+    <p><strong>E-posta:</strong> <a href="mailto:cicekhalil753@gmail.com" style="color:var(--accent)">cicekhalil753@gmail.com</a></p>
+    <p><strong>Telefon:</strong> 05444015865</p>
+    <div class="social-links">
+             <a href="https://www.linkedin.com/in/ibrahim-%C3%A7i%C3%A7ek-4a5540226/" target="_blank" class="social-link">LinkedIn</a>
+             <a href="https://github.com/TRibrahimcck" target="_blank" class="social-link">GitHub</a>
+             <a href="https://wa.me/905444015865" target="_blank" class="social-link">WhatsApp</a>
+             <a href="https://www.instagram.com/ibrahim.cicek.qq/?hl=tr" target="_blank" class="social-link" style="background: #E1306C; color: white;">Instagram</a>
+         </div>
+   </div>
+
+        <div class="card">
+      <h3>Eğitim</h3>
+      <p><strong>Ankara Üniversitesi</strong><br>Bilgisayar Programcılığı (2023 - 2025)</p>
+           <p><strong>Necmettin Yıldız Meslek Lisesi</strong><br>Bilişim Teknolojileri (2019 - 2023, Okul Birinciliği)</p>
+    </div>
+
+        <div class="card">
+      <h3>Diğer Yetenekler</h3>
+      <p><strong>C#</strong>, <strong>Python</strong> (Yapay Zeka/Asistan), **React**.</p>
+           <p><strong>Tasarım:</strong> Grafik Tasarım, Sosyal Medya Görselleri (Canva), SolidWorks (3D).</p>
+           <p><strong>Yabancı Dil:</strong> İngilizce (A2-Orta).</p>
+           <p><strong>Sertifikalar:</strong> Erasmus+ Viyan IT. e.U Project, CNC Freze Operatörlüğü, SolidWorks 3D Tasarım.</p>
+    </div>
+  </aside>
+ </div>
+
+    <script>
+      // Hakkımda butonuna tıklandığında sayfayı Hakkımda bölümüne kaydıran JS
+      document.getElementById('aboutBtn').addEventListener('click', function() {
+          document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Haber Oku butonu için fonksiyon (Yeni pencerede tam metni gösterir)
+      function showFullNews(title, content) {
+          const newWindow = window.open('', '_blank', 'width=700,height=500,scrollbars=yes');
+          newWindow.document.write(`
+              <html>
+                  <head>
+                      <title>${title}</title>
+                      <style>
+                          body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; padding: 20px; line-height: 1.8; }
+                          h1 { color: #004d99; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+                          button { background-color: #004d99; color: white; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; }
+                          button:hover { background-color: #003366; }
+                      </style>
+                  </head>
+                  <body>
+                      <h1>${title}</h1>
+                      <p><strong>Kaynak:</strong> İbrahim Çiçek'in Seçimi / 14 Ekim 2025</p>
+                      <hr>
+                      <p>${content}</p>
+                      <button onclick="window.close()">Pencereyi Kapat</button>
+                  </body>
+              </html>
+          `);
+          newWindow.document.close();
+      }
+
+      // OYUN FONKSİYONU
+      function showGame(gameID) {
+          let gameTitle, windowWidth, windowHeight, gameContentHTML, gameLogicJS;
+          
+          if (gameID === 'GUESSING_GAME') {
+              gameTitle = "Sayı Tahmin Oyunu";
+              windowWidth = 450;
+              windowHeight = 450;
+              gameContentHTML = `
+                <style>
+                    #game-output { background: #222; color: #7dd3fc; padding: 10px; border-radius: 6px; min-height: 100px; margin-bottom: 15px; overflow-y: auto;}
+                    #guess-input { width: 60%; padding: 10px; margin-right: 10px; }
+                    .game-controls button { background: #f472b6; color: #1f1f25; font-weight: 600; padding: 10px 15px; border-radius: 6px; border: none; cursor: pointer; }
+                </style>
+                <p>1 ile 100 arasında bir sayı tuttum. Kaç olduğunu tahmin et!</p>
+                <div id="game-output">Yeni oyun başladı.</div>
+                <div class="game-controls">
+                    <input type="number" id="guess-input" min="1" max="100" placeholder="Tahminini gir (1-100)">
+                    <button onclick="checkGuess()">Tahmin Et</button>
+                    <button onclick="startGame()">Yeniden Başla</button>
+                </div>
+              `;
+              gameLogicJS = function(win) {
+                  let targetNumber, attempts;
+
+                  win.startGame = function() {
+                      targetNumber = Math.floor(Math.random() * 100) + 1;
+                      attempts = 0;
+                      win.document.getElementById('game-output').innerHTML = 'Yeni oyun başladı. İyi şanslar!';
+                      win.document.getElementById('guess-input').disabled = false;
+                      win.document.getElementById('guess-input').focus();
+                  };
+
+                  win.checkGuess = function() {
+                      const inputElement = win.document.getElementById('guess-input');
+                      const outputElement = win.document.getElementById('game-output');
+                      const guess = parseInt(inputElement.value);
+
+                      if (isNaN(guess) || guess < 1 || guess > 100) {
+                          outputElement.innerHTML += '<br>Lütfen 1 ile 100 arasında geçerli bir sayı girin.';
+                          return;
+                      }
+
+                      attempts++;
+                      let result;
+
+                      if (guess === targetNumber) {
+                          result = `**Tebrikler! ${targetNumber} sayısını ${attempts} denemede buldunuz!**`;
+                      } else if (guess < targetNumber) {
+                          result = `${guess} (Yukarı)`;
+                      } else {
+                          result = `${guess} (Aşağı)`;
+                      }
+                      
+                      outputElement.innerHTML += `<br>Deneme ${attempts}: ${result}`;
+                      inputElement.value = ''; 
+                      inputElement.focus();
+
+                      if (guess === targetNumber) {
+                          inputElement.disabled = true;
+                          outputElement.innerHTML += '<br><br>Oyunu bitirdiniz. Yeniden başlamak için butonu kullanın.';
+                      }
+                  };
+                  win.startGame(); 
+              };
+
+          } else if (gameID === 'RPS_GAME') {
+              gameTitle = "Taş-Kağıt-Makas";
+              windowWidth = 500;
+              windowHeight = 400;
+              gameContentHTML = `
+                <style>
+                    #result-display { font-size: 24px; margin-top: 15px; font-weight: bold; color: #f59e0b; }
+                    .game-choices button { 
+                        padding: 15px 25px; margin: 5px; font-size: 24px; border-radius: 10px; 
+                        background: #4f46e5; color: white; border: none; cursor: pointer;
+                    }
+                    #score { margin-top: 20px; font-size: 16px; }
+                </style>
+                <p>Hamleni seç:</p>
+                <div class="game-choices">
+                    <button onclick="playRPS(0)">🪨 Taş</button>
+                    <button onclick="playRPS(1)">📄 Kağıt</button>
+                    <button onclick="playRPS(2)">✂️ Makas</button>
+                </div>
+                <div id="result-display">Hamleni yap.</div>
+                <div id="score">Skor: Sen 0 - PC 0</div>
+              `;
+              gameLogicJS = function(win) {
+                  const choices = ['🪨 Taş', '📄 Kağıt', '✂️ Makas'];
+                  let userScore = 0;
+                  let pcScore = 0;
+
+                  win.updateScore = function() {
+                      win.document.getElementById('score').innerText = `Skor: Sen ${userScore} - PC ${pcScore}`;
+                  };
+
+                  win.playRPS = function(userChoice) {
+                      const pcChoice = Math.floor(Math.random() * 3);
+                      let resultText = '';
+                      let winCondition = false; 
+
+                      if (userChoice === pcChoice) {
+                          resultText = "Berabere! Kimse kazanmadı. 🤝";
+                      } else if (
+                          (userChoice === 0 && pcChoice === 2) || 
+                          (userChoice === 1 && pcChoice === 0) || 
+                          (userChoice === 2 && pcChoice === 1)    
+                      ) {
+                          userScore++;
+                          resultText = `Kazandın! ${choices[userChoice]} ${choices[pcChoice]}'ı yendi. 🎉`;
+                          winCondition = true;
+                      } else {
+                          pcScore++;
+                          resultText = `Kaybettin! ${choices[pcChoice]} ${choices[userChoice]}'ı yendi. 😟`;
+                      }
+
+                      win.document.getElementById('result-display').innerHTML = `Sen: ${choices[userChoice]} | PC: ${choices[pcChoice]} <br><span style="color: ${winCondition ? '#10b981' : (userChoice === pcChoice ? '#f59e0b' : '#dc2626')}">${resultText}</span>`;
+                      win.updateScore();
+                  };
+                  win.updateScore(); 
+              };
+          } else if (gameID === 'TICTACTOE_GAME') {
+              gameTitle = "XOX (Tic-Tac-Toe) Oyunu (Vs. AI)";
+              windowWidth = 400;
+              windowHeight = 450;
+              gameContentHTML = `
+                <style>
+                    #tictactoe-board {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        width: 300px;
+                        height: 300px;
+                        margin: 20px auto 10px;
+                        border: 3px solid #6d28d9;
+                    }
+                    .cell {
+                        border: 1px solid #6d28d9;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 48px;
+                        cursor: pointer;
+                        user-select: none;
+                        transition: background 0.1s;
+                        color: #e9d5ff;
+                    }
+                    .cell:hover { background-color: rgba(109, 40, 217, 0.1); }
+                    .cell[data-player="X"] { color: #facc15; } /* Oyuncu */
+                    .cell[data-player="O"] { color: #10b981; } /* Bilgisayar */
+                    #status-display { font-size: 20px; color: #e9d5ff; margin-bottom: 15px; }
+                </style>
+                <div id="status-display">Sıra: X (Siz)</div>
+                <div id="tictactoe-board">
+                    <div class="cell" data-index="0" onclick="makeMove(0)"></div>
+                    <div class="cell" data-index="1" onclick="makeMove(1)"></div>
+                    <div class="cell" data-index="2" onclick="makeMove(2)"></div>
+                    <div class="cell" data-index="3" onclick="makeMove(3)"></div>
+                    <div class="cell" data-index="4" onclick="makeMove(4)"></div>
+                    <div class="cell" data-index="5" onclick="makeMove(5)"></div>
+                    <div class="cell" data-index="6" onclick="makeMove(6)"></div>
+                    <div class="cell" data-index="7" onclick="makeMove(7)"></div>
+                    <div class="cell" data-index="8" onclick="makeMove(8)"></div>
+                </div>
+                <button onclick="startGame()" style="background: #6d28d9; color: #fff; border-radius: 6px; padding: 8px 15px; border: none; cursor: pointer; margin-top: 10px;">Yeniden Başla</button>
+              `;
+              gameLogicJS = function(win) {
+                  let board, currentPlayer, gameActive, cells;
+                  const PLAYER_MARK = 'X'; // Oyuncu
+                  const AI_MARK = 'O';    // Bilgisayar
+                  const winningCombos = [
+                      [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+                      [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+                      [0, 4, 8], [2, 4, 6]             
+                  ];
+
+                  win.startGame = function() {
+                      board = Array(9).fill(null);
+                      currentPlayer = PLAYER_MARK;
+                      gameActive = true;
+                      cells = win.document.querySelectorAll('.cell');
+                      cells.forEach(cell => {
+                          cell.innerText = '';
+                          cell.dataset.player = '';
+                          cell.style.pointerEvents = 'auto';
+                      });
+                      win.document.getElementById('status-display').innerText = `Sıra: ${PLAYER_MARK} (Siz)`;
+                  };
+
+                  function checkWin() {
+                      for (let combo of winningCombos) {
+                          const [a, b, c] = combo;
+                          if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                              gameActive = false;
+                              win.document.getElementById('status-display').innerText = `${board[a] === PLAYER_MARK ? 'Siz' : 'Bilgisayar'} Kazandı! 🎉`;
+                              cells.forEach(cell => cell.style.pointerEvents = 'none');
+                              return true;
+                          }
+                      }
+                      if (board.every(cell => cell !== null)) {
+                          gameActive = false;
+                          win.document.getElementById('status-display').innerText = "Berabere! 🤝";
+                          return true;
+                      }
+                      return false;
+                  }
+                  
+                  function computerMove() {
+                      if (!gameActive) return;
+
+                      const availableMoves = board
+                          .map((val, index) => val === null ? index : null)
+                          .filter(val => val !== null);
+                      
+                      if (availableMoves.length > 0) {
+                          // Basit AI: Rastgele bir boş kare seç
+                          const randomMoveIndex = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+                          
+                          // Hamleyi yap
+                          board[randomMoveIndex] = AI_MARK;
+                          const cell = cells[randomMoveIndex];
+                          cell.innerText = AI_MARK;
+                          cell.dataset.player = AI_MARK;
+                          cell.style.pointerEvents = 'none';
+
+                          if (checkWin()) return;
+
+                          // Sırayı Oyuncuya Devret
+                          currentPlayer = PLAYER_MARK;
+                          win.document.getElementById('status-display').innerText = `Sıra: ${PLAYER_MARK} (Siz)`;
+                      }
+                  }
+
+                  win.makeMove = function(index) {
+                      if (!gameActive || board[index] !== null || currentPlayer !== PLAYER_MARK) return;
+
+                      // Oyuncu Hamlesi
+                      board[index] = PLAYER_MARK;
+                      const cell = cells[index];
+                      cell.innerText = PLAYER_MARK;
+                      cell.dataset.player = PLAYER_MARK;
+                      cell.style.pointerEvents = 'none';
+
+                      if (checkWin()) return;
+
+                      // Sırayı Bilgisayara Devret ve Hamle yapmasını bekle (Küçük gecikme ekleyelim)
+                      currentPlayer = AI_MARK;
+                      win.document.getElementById('status-display').innerText = `Sıra: ${AI_MARK} (PC düşünüyor...)`;
+                      
+                      setTimeout(() => {
+                           computerMove();
+                      }, 500); // 500ms bekleyip hamle yapar.
+                  };
+                  win.startGame();
+              };
+
+          } else if (gameID === 'SNAKE_GAME') {
+              gameTitle = "Snake (Yılan Oyunu)";
+              windowWidth = 500;
+              windowHeight = 600;
+              gameContentHTML = `
+                <style>
+                    #snake-game-area { 
+                        border: 2px solid #a7f3d0; background-color: #1f1f25; 
+                        margin: 0 auto; display: block; border-radius: 4px;
+                        touch-action: none; 
+                    }
+                    #game-info { margin-top: 10px; font-size: 16px; color: #a7f3d0; }
+                    .game-controls button { 
+                        margin-top: 15px; padding: 10px 20px; font-size: 16px; 
+                        background: #a7f3d0; color: #111827; border: none; border-radius: 6px; cursor: pointer; 
+                    }
+                </style>
+                <p style="color:#9aa0a6;">Ok tuşlarını kullanarak yılanı hareket ettirin.</p>
+                <canvas id="snake-game-area" width="400" height="400"></canvas>
+                <div id="game-info">Puan: 0</div>
+                <div class="game-controls">
+                    <button onclick="startGame()">Oyunu Başlat / Yeniden Başlat</button>
+                </div>
+              `;
+              gameLogicJS = function(win) {
+                    const canvas = win.document.getElementById('snake-game-area');
+                    const ctx = canvas.getContext('2d');
+                    const gameInfo = win.document.getElementById('game-info');
+                    const gridSize = 20;
+                    const tileCount = canvas.width / gridSize;
+                    let snake, food, score, xVel, yVel, gameLoop, isPlaying;
+
+                    win.startGame = function() {
+                        if (gameLoop) clearInterval(gameLoop);
+                        snake = [{x: 10, y: 10}];
+                        food = generateFoodPosition();
+                        score = 0;
+                        xVel = 0;
+                        yVel = 0;
+                        isPlaying = true;
+                        updateScore();
+                        gameLoop = setInterval(gameTick, 100);
+                    };
+
+                    function generateFoodPosition() {
+                        let newFood;
+                        do {
+                            newFood = {
+                                x: Math.floor(Math.random() * tileCount),
+                                y: Math.floor(Math.random() * tileCount)
+                            };
+                        } while (snake.some(segment => segment.x === newFood.x && segment.y === newFood.y));
+                        return newFood;
+                    }
+
+                    function updateScore() {
+                        gameInfo.innerText = `Puan: ${score}`;
+                    }
+
+                    function gameTick() {
+                        if (!isPlaying) return;
+
+                        // Yılanın Yeni Konumu
+                        const head = {x: snake[0].x + xVel, y: snake[0].y + yVel};
+
+                        // Çarpışma Kontrolü (Duvarlar ve Kendi Kendine)
+                        if (
+                            head.x < 0 || head.x >= tileCount || 
+                            head.y < 0 || head.y >= tileCount ||
+                            snake.some((segment, index) => index !== 0 && segment.x === head.x && segment.y === head.y)
+                        ) {
+                            isPlaying = false;
+                            clearInterval(gameLoop);
+                            gameInfo.innerText = `Oyun Bitti! Son Puan: ${score}. Yeniden başlatın.`;
+                            return;
+                        }
+
+                        // Yılanı Taşı
+                        snake.unshift(head);
+
+                        // Yem Yeme Kontrolü
+                        if (head.x === food.x && head.y === food.y) {
+                            score++;
+                            updateScore();
+                            food = generateFoodPosition();
+                        } else {
+                            snake.pop(); // Yem yemezse kuyruğu sil
+                        }
+
+                        drawGame();
+                    }
+
+                    function drawGame() {
+                        // Arkaplanı Temizle
+                        ctx.fillStyle = '#1f1f25';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                        // Yılanı Çiz
+                        ctx.fillStyle = '#a7f3d0';
+                        snake.forEach(segment => {
+                            ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 1, gridSize - 1);
+                        });
+
+                        // Yemi Çiz
+                        ctx.fillStyle = '#f97316';
+                        ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 1, gridSize - 1);
+                    }
+
+                    win.setDirection = function(newXVel, newYVel) {
+                         // Ters yöne gitmeyi engelle
+                        if ((newXVel !== 0 && newXVel === -xVel) || (newYVel !== 0 && newYVel === -yVel)) {
+                            return;
+                        }
+                        if (xVel === 0 && yVel === 0 && newXVel === 0 && newYVel === 0) return; // Başlangıçta hareketsiz kalmayı sağlar
+                        xVel = newXVel;
+                        yVel = newYVel;
+                    }
+
+                    // Klavye Kontrolleri
+                    win.document.addEventListener('keydown', (e) => {
+                        e.preventDefault(); 
+                        switch(e.key) {
+                            case 'ArrowUp':
+                            case 'w':
+                                if (yVel === 1) return;
+                                win.setDirection(0, -1);
+                                break;
+                            case 'ArrowDown':
+                            case 's':
+                                if (yVel === -1) return;
+                                win.setDirection(0, 1);
+                                break;
+                            case 'ArrowLeft':
+                            case 'a':
+                                if (xVel === 1) return;
+                                win.setDirection(-1, 0);
+                                break;
+                            case 'ArrowRight':
+                            case 'd':
+                                if (xVel === -1) return;
+                                win.setDirection(1, 0);
+                                break;
+                        }
+                    });
+
+                    // Başlangıçta oyunu başlat
+                    win.startGame();
+              };
+          } else {
+              return;
+          }
+
+          // Ortak pencere oluşturma mantığı
+          const gameWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},scrollbars=no`);
+          gameWindow.document.write(`
+              <html>
+                  <head>
+                      <title>${gameTitle}</title>
+                      <style>
+                          body { font-family: Inter, sans-serif; background-color: #121215; color: #e6eef3; padding: 20px; text-align: center; }
+                          h2 { color: #f472b6; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-top: 0; }
+                      </style>
+                  </head>
+                  <body>
+                      <h2>${gameTitle}</h2>
+                      ${gameContentHTML}
+                  </body>
+              </html>
+          `);
+          gameWindow.document.close();
+          
+          // Oyun mantığını yeni pencereye yükle
+          if (gameLogicJS) {
+              gameLogicJS(gameWindow);
+          }
+      }
+
+      // YENİ FONKSİYON: Araçları Çalıştıran Pencereyi Oluşturur ve İşlevi Yükler
+      function showTool(toolID) {
+          let toolTitle, toolPrompt, placeholder, processFunction, windowWidth, windowHeight, toolContentHTML;
+
+          // Hangi aracın seçildiğine göre içerik ve işlevsellik ayarlanır
+          if (toolID === 'C#_PROPERTY_GENERATOR') {
+              toolTitle = "C# Property Üreticisi";
+              toolPrompt = "Değişken adınızı girin (örn: ProductName)";
+              placeholder = "// Property Kodu burada görünecek...";
+              windowWidth = 550;
+              windowHeight = 450;
+              toolContentHTML = `
+                <label for="input-data">${toolPrompt}</label>
+                <input type="text" id="input-data" placeholder="Veri Girin..." onkeypress="if(event.key === 'Enter') processTool()">
+                <button onclick="processTool()">Sonucu Gör ve Kopyala</button>
+                <p>Sonuç:</p>
+                <div class="result-box" id="result">${placeholder}</div>
+              `;
+              processFunction = function(input) {
+                  if (!input) return '// Lütfen geçerli bir ad girin.';
+                  const cleanInput = input.replace(/\s/g, '');
+                  const propName = cleanInput.charAt(0).toUpperCase() + cleanInput.slice(1);
+                  const privateVarName = "_" + propName.charAt(0).toLowerCase() + propName.slice(1);
+
+                  return `
+public class MyClass
+{
+    private string ${privateVarName}; // Kapsüllenmiş özel alan
+
+    /// <summary>
+    /// Güvenli Veri Erişimi sağlar.
+    /// </summary>
+    public string ${propName}
+    {
+        get { return ${privateVarName}; }
+        set { ${privateVarName} = value; }
+    }
+}
+                  `.trim();
+              };
+
+          } else if (toolID === 'HEX_TO_RGB_CONVERTER') {
+              toolTitle = "HEX'ten RGB'ye Renk Dönüştürücü";
+              toolPrompt = "HEX kodu girin (örn: #7dd3fc veya 7dd3fc)";
+              placeholder = "RGB Değeri burada görünecek...";
+              windowWidth = 450;
+              windowHeight = 400;
+              toolContentHTML = `
+                <label for="input-data">${toolPrompt}</label>
+                <input type="text" id="input-input" placeholder="Veri Girin..." onkeypress="if(event.key === 'Enter') processTool()">
+                <button onclick="processTool()">Sonucu Gör ve Kopyala</button>
+                <p>Sonuç:</p>
+                <div class="result-box" id="result">${placeholder}</div>
+              `;
+              processFunction = function(input) {
+                  let hex = input.startsWith('#') ? input.slice(1) : input;
+                  if (hex.length === 3) {
+                      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+                  }
+                  
+                  if (hex.length !== 6 || !/^[0-9a-fA-F]{6}$/.test(hex)) {
+                      return 'Geçersiz HEX Kodu. Lütfen 3 veya 6 haneli HEX girin.';
+                  }
+                  
+                  const r = parseInt(hex.substring(0, 2), 16);
+                  const g = parseInt(hex.substring(2, 4), 16);
+                  const b = parseInt(hex.substring(4, 6), 16);
+                  
+                  return `RGB: rgb(${r}, ${g}, ${b})\n\nRenk Önizlemesi:\n<div style="width: 100%; height: 50px; background-color: #${hex}; border-radius: 4px; margin-top: 10px;"></div>`;
+              };
+          } else if (toolID === 'MINI_CALCULATOR') {
+              toolTitle = "Mini Hesap Makinesi";
+              windowWidth = 350;
+              windowHeight = 450; 
+              // Hesap Makinesi tuş dizilimi düzeltildi (CSS Grid)
+              toolContentHTML = `
+                <style>
+                    #calc-input { font-size: 20px; text-align: right; margin-bottom: 15px; height: 50px; width: 100%; box-sizing: border-box; background: #222; border: none; color: white; padding: 10px; border-radius: 6px;}
+                    .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+                    .calc-btn { 
+                        padding: 15px; font-size: 18px; border: none; border-radius: 8px; cursor: pointer;
+                        background: #374151; color: white; transition: background 0.1s;
+                    }
+                    .calc-btn:hover { background: #4b5563; }
+                    .calc-btn.op { background: #10b981; } 
+                    .calc-btn.op:hover { background: #0d9488; }
+                    .calc-btn.clear { background: #dc2626; } 
+                    .calc-btn.clear:hover { background: #b91c1c; }
+                    .calc-btn.eq { background: #f59e0b; } 
+                    .calc-btn.eq:hover { background: #fbbf24; }
+                </style>
+                <input type="text" id="calc-input" value="0" readonly>
+                <div class="calc-grid">
+                    <button class="calc-btn clear" onclick="clearInput()">C</button>
+                    <button class="calc-btn op" onclick="appendInput('/')">/</button>
+                    <button class="calc-btn op" onclick="appendInput('*')">x</button>
+                    <button class="calc-btn op" onclick="appendInput('-')">-</button>
+                    
+                    <button class="calc-btn" onclick="appendInput('7')">7</button>
+                    <button class="calc-btn" onclick="appendInput('8')">8</button>
+                    <button class="calc-btn" onclick="appendInput('9')">9</button>
+                    <button class="calc-btn op" onclick="appendInput('+')">+</button>
+                    
+                    <button class="calc-btn" onclick="appendInput('4')">4</button>
+                    <button class="calc-btn" onclick="appendInput('5')">5</button>
+                    <button class="calc-btn" onclick="appendInput('6')">6</button>
+                    <button class="calc-btn eq" onclick="calculate()" style="grid-row: 3 / span 2; grid-column: 4;">=</button> 
+
+                    <button class="calc-btn" onclick="appendInput('1')">1</button>
+                    <button class="calc-btn" onclick="appendInput('2')">2</button>
+                    <button class="calc-btn" onclick="appendInput('3')">3</button>
+                    
+                    <button class="calc-btn" style="grid-column: span 2;" onclick="appendInput('0')">0</button> 
+                    <button class="calc-btn" onclick="appendInput('.')">.</button>
+                </div>
+              `;
+              processFunction = function(input) {
+                return ''; 
+              };
+          } else {
+              return; // Tanımsız araç
+          }
+
+          const toolWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},scrollbars=no`);
+          
+          // Pencere içeriği (HTML/CSS) oluşturulur
+          toolWindow.document.write(`
+              <html>
+                  <head>
+                      <title>${toolTitle}</title>
+                      <style>
+                          body { font-family: Inter, sans-serif; background-color: #121215; color: #e6eef3; padding: 20px; }
+                          h2 { color: #f59e0b; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-top: 0; }
+                          label, p { display: block; margin-top: 15px; font-size: 14px; color: #9aa0a6; }
+                          input[type="text"] {
+                              width: 95%; padding: 10px; border-radius: 6px; border: 1px solid #4f46e5;
+                              background-color: #0f0f10; color: #e6eef3; font-size: 14px;
+                          }
+                          button {
+                              background-color: #f59e0b; color: #1f1f25; padding: 10px 15px; border: none; border-radius: 6px; 
+                              cursor: pointer; margin-top: 20px; font-weight: 600; transition: background 0.3s;
+                          }
+                          button:hover { background-color: #fbbf24; }
+                          .result-box {
+                              background-color: #0f0f10; padding: 15px; border-radius: 6px; 
+                              border: 1px dashed #4f46e5; margin-top: 15px; white-space: pre-wrap;
+                              font-family: Consolas, monospace; font-size: 13px; color: #7dd3fc;
+                          }
+                      </style>
+                  </head>
+                  <body>
+                      <h2>${toolTitle}</h2>
+                      ${toolContentHTML}
+                  </body>
+              </html>
+          `);
+          
+          toolWindow.document.close();
+          
+          // Standart Araçlar için JS İşlemleri
+          if (toolID === 'C#_PROPERTY_GENERATOR' || toolID === 'HEX_TO_RGB_CONVERTER') {
+              toolWindow.processTool = function() {
+                  // Düzeltme: input-data yerine input-input olan hata düzeltildi
+                  const inputElement = toolWindow.document.getElementById('input-data') || toolWindow.document.getElementById('input-input');
+                  const input = inputElement.value.trim();
+                  const resultBox = toolWindow.document.getElementById('result');
+                  
+                  const output = processFunction(input);
+                  
+                  resultBox.innerHTML = output;
+
+                  const textToCopy = resultBox.textContent || resultBox.innerText;
+                  if (navigator.clipboard) {
+                    navigator.clipboard.writeText(textToCopy.replace('// Kopyalandı!', '')).then(() => {
+                        resultBox.innerHTML += '\n\n// Kopyalandı!';
+                    }).catch(() => {
+                        // Hata durumunda hiçbir şey yapma
+                    });
+                  }
+              };
+          }
+          
+          // Hesap Makinesi için JS İşlemleri
+          if (toolID === 'MINI_CALCULATOR') {
+              const inputField = toolWindow.document.getElementById('calc-input');
+              
+              toolWindow.appendInput = function(val) {
+                  const currentValue = inputField.value;
+                  
+                  if (currentValue === '0' && (val >= '1' && val <= '9')) {
+                      inputField.value = val;
+                  } 
+                  else if (currentValue === '0' && ['+', '-', '*', '/'].includes(val)) {
+                      inputField.value = currentValue + val;
+                  }
+                  else if (currentValue === '0' && val === '.') {
+                      inputField.value = '0.';
+                  }
+                  else if (['+', '-', '*', '/'].includes(currentValue.slice(-1)) && ['+', '-', '*', '/'].includes(val)) {
+                      inputField.value = currentValue.slice(0, -1) + val;
+                  }
+                  else if (currentValue.slice(-1) === '.' && val === '.') {
+                      // Do nothing
+                  }
+                  else {
+                      inputField.value += val;
+                  }
+              };
+
+              toolWindow.clearInput = function() {
+                  inputField.value = '0';
+              };
+
+              toolWindow.calculate = function() {
+                  try {
+                      const expression = inputField.value;
+                      const finalExpression = expression.replace(/x/g, '*'); 
+
+                      // eslint-disable-next-line no-eval
+                      const result = eval(finalExpression); 
+                      
+                      inputField.value = (Math.round(result * 1000000) / 1000000).toString();
+                  } catch (e) {
+                      inputField.value = 'HATA';
+                  }
+              };
+          }
+      }
+    </script>
+</body>
+</html>
